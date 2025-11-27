@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YUSTER STORE - Premium Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --text: #333;
+            --text-light: #7f8c8d;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+            color: var(--secondary);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--secondary);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+           /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('img/E.jpg') center/cover no-repeat;
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+
+        
+        /* Dashboard */
+        .dashboard {
+            display: flex;
+            margin-bottom: 50px;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--primary);
+            color: white;
+            padding: 30px 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar li:hover, .sidebar li.active {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .dashboard-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .product-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--secondary);
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--secondary);
+        }
+
+  /* Payment Details */
+        .payment-details {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .payment-section {
+            margin-bottom: 25px;
+        }
+
+        .payment-section h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f1f1f1;
+        }
+
+        .payment-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .payment-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .payment-item strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-content {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            padding: 30px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .cart-items {
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-details h4 {
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .quantity-btn {
+            background-color: #f1f1f1;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .remove-item {
+            color: var(--accent);
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+
+        .cart-summary {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--success);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background-color: #27ae60;
+        }
+
+        /* Checkout Modal */
+        .checkout-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .checkout-content {
+            background-color: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        .checkout-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .close-checkout {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--secondary);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Currency Format */
+        .currency {
+            font-weight: 700;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .dashboard {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                padding: 20px 0;
+            }
+            
+            .sidebar ul {
+                display: flex;
+                justify-content: space-around;
+            }
+            
+            .sidebar li {
+                padding: 10px 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar ul {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .cart-item-image {
+                width: 100%;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-store"></i>
+                    <h1>YUSTER <span>STORE</span></h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active" data-page="home">Home</a></li>
+                        <li><a href="#" data-page="services">Services</a></li>
+                        <li><a href="#" data-page="about">About</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <div class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Premium Products for Everyday Life</h2>
+            <p>Discover our curated collection of high-quality items designed to enhance your lifestyle</p>
+            <a href="#" class="btn" id="shopNowBtn">Shop Now</a>
+            <a href="#" class="btn btn-secondary" id="learnMoreBtn">Learn More</a>
+        </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section class="dashboard">
+        <div class="sidebar">
+            <ul>
+                <li class="active" data-page="home"><i class="fas fa-home"></i> Home</li>
+                <li data-page="services"><i class="fas fa-concierge-bell"></i> Services</li>
+                <li data-page="about"><i class="fas fa-info-circle"></i> About Us</li>
+            </ul>
+        </div>
+        <div class="dashboard-content">
+            <!-- Home Page -->
+            <div class="page active" id="home">
+                <h2>Featured Products</h2>
+                <p>Check out our latest and most popular products</p>
+                
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be dynamically added here -->
+                </div>
+            </div>
+            
+            <!-- Services Page -->
+            <div class="page" id="services">
+                <h2>Our Services</h2>
+                <p>We offer a wide range of services to meet your needs</p>
+                
+                <div class="services-list" style="margin-top: 30px;">
+                    <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+                        <h3><i class="fas fa-shipping-fast" style="color: var(--secondary); margin-right: 10px;"></i> Fast Shipping</h3>
+                        <p>We offer fast and reliable shipping to all locations in Malawi. Most orders are delivered within 2-3 business days.</p>
+                    </div>
+                    
+                    <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+                        <h3><i class="fas fa-undo" style="color: var(--secondary); margin-right: 10px;"></i> Easy Returns</h3>
+                        <p>Not satisfied with your purchase? We offer a 30-day return policy with no questions asked.</p>
+                    </div>
+                    
+                    <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+                        <h3><i class="fas fa-headset" style="color: var(--secondary); margin-right: 10px;"></i> 24/7 Support</h3>
+                        <p>Our customer support team is available around the clock to assist you with any questions or concerns.</p>
+                    </div>
+                </div>
+            </div>
+             
+            <!-- About Page -->
+            <div class="page" id="about">
+                <h2>About YUSTER STORE</h2>
+                <p>Learn more about our company and mission</p>
+                
+                <div style="margin-top: 30px;">
+                    <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+                        <h3>Our Story</h3>
+                        <p>Founded in 2020, YUSTER STORE has been committed to providing high-quality products at affordable prices for customers across Malawi. We believe that everyone deserves access to premium items that enhance their daily lives.</p>
+                    </div>
+                    
+                    <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+                        <h3>Our Mission</h3>
+                        <p>To make premium products accessible to everyone in Malawi while maintaining the highest standards of quality and customer service.</p>
+                    </div>
+                    
+                    <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+                        <h3>Our Values</h3>
+                        <p>We value transparency, quality, and customer satisfaction above all else. These principles guide everything we do.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Payment Details Section -->
+                <div class="payment-details">
+                    <h2>Payment Methods</h2>
+                    <p>We accept the following payment methods for your convenience:</p>
+                    
+                    <div class="payment-section">
+                        <h3><i class="fas fa-mobile-alt"></i> Mobile Payments</h3>
+                        <div class="payment-info">
+                            <div class="payment-item">
+                                <strong>Airtel Money</strong>
+                                <div>Agent Code: 1014 89 09</div>
+                                <div>Agent No.: 098 1957 037</div>
+                                <div>Name: Yuster Store</div>
+                            </div>
+                            <div class="payment-item">
+                                <strong>TNM Mpamba</strong>
+                                <div>Agent Code: 320 29 69</div>
+                                <div>Name: Yuster Store</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-section">
+                        <h3><i class="fas fa-university"></i> Bank Transfer</h3>
+                        <div class="payment-info">
+                            <div class="payment-item">
+                                <strong>FDH Bank</strong>
+                                <div>Account No.: 1650 1000 288 73</div>
+                                <div>Account Name: Yuster Store</div>
+                                <div>Branch: Mangochi</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Your Shopping Cart</h2>
+                <button class="close-cart" id="closeCart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="cart-summary">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">MK 0.00</span>
+                </div>
+                <button class="checkout-btn" id="proceedCheckoutBtn">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-content">
+            <div class="checkout-header">
+                <h2>Checkout</h2>
+                <button class="close-checkout" id="closeCheckout">&times;</button>
+            </div>
+            <form class="checkout-form" id="checkoutForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Delivery Address</label>
+                    <textarea id="address" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="payment">Payment Method</label>
+                    <select id="payment" required>
+                        <option value="">Select payment method</option>
+                        <option value="mobile_money">Mobile Money</option>
+                        <option value="bank_transfer">Bank Transfer</option>
+                        <option value="cash">Cash on Delivery</option>
+                    </select>
+                </div>
+                <button type="submit" class="checkout-btn">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>YUSTER STORE</h3>
+                    <p>Your one-stop shop for premium products that enhance your lifestyle.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Products</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Chitakale, Mulanje, Blantyre, Malawi</li>
+                        <li><i class="fas fa-phone"></i> +265 992 845 456</li>
+                        <li><i class="fas fa-envelope"></i> info@yusterstore.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 YUSTER STORE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product data with Malawi Kwacha prices
+        const products = [
+            { id: 1, name: "Product A", price: 49999, originalPrice: 59999, image: "img/A.jpg", description: "High-quality product with premium features." },
+            { id: 2, name: "Product B", price: 39999, originalPrice: 49999, image: "img/B.jpg", description: "Stylish design with excellent performance." },
+            { id: 3, name: "Product C", price: 29999, originalPrice: 39999, image: "img/C.jpg", description: "Perfect for everyday use with durable construction." },
+            { id: 4, name: "Product D", price: 59999, originalPrice: 69999, image: "img/D.jpg", description: "Advanced features for professional use." },
+            { id: 5, name: "Product E", price: 79999, originalPrice: 99999, image: "img/E.jpg", description: "Luxury edition with premium materials." },
+            { id: 6, name: "Product F", price: 19999, originalPrice: 24999, image: "img/F.jpg", description: "Budget-friendly option without compromising quality." },
+            { id: 7, name: "Product Aa", price: 89999, originalPrice: 109999, image: "img/Aa.jpg", description: "Limited edition with exclusive features." },
+            { id: 8, name: "Product Bb", price: 69999, originalPrice: 79999, image: "img/Bb.jpg", description: "Professional grade for demanding users." },
+            { id: 9, name: "Product Cc", price: 44999, originalPrice: 54999, image: "img/Cc.jpg", description: "Versatile product suitable for multiple uses." },
+            { id: 10, name: "Product Dd", price: 34999, originalPrice: 44999, image: "img/Dd.jpg", description: "Compact design with powerful performance." }
+        ];
+
+        // Format price as Malawi Kwacha
+        function formatPrice(price) {
+            return `MK ${price.toLocaleString('en-MW')}`;
+        }
+
+        // Cart functionality
+        let cart = [];
+        const cartIcon = document.getElementById('cartIcon');
+        const cartModal = document.getElementById('cartModal');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const cartCount = document.querySelector('.cart-count');
+        const shopNowBtn = document.getElementById('shopNowBtn');
+        const learnMoreBtn = document.getElementById('learnMoreBtn');
+        const proceedCheckoutBtn = document.getElementById('proceedCheckoutBtn');
+        const checkoutModal = document.getElementById('checkoutModal');
+        const closeCheckout = document.getElementById('closeCheckout');
+        const checkoutForm = document.getElementById('checkoutForm');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+            setupNavigation();
+            
+            // Event listeners for cart
+            cartIcon.addEventListener('click', openCart);
+            closeCart.addEventListener('click', closeCartModal);
+            
+            // Button functionality
+            shopNowBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Scroll to products section
+                document.querySelector('.products-grid').scrollIntoView({ 
+                    behavior: 'smooth' 
+                });
+            });
+            
+            learnMoreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Navigate to About page
+                showPage('about');
+                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                document.querySelectorAll('nav a[data-page="about"]').forEach(a => a.classList.add('active'));
+                document.querySelectorAll('.sidebar li').forEach(li => li.classList.remove('active'));
+                document.querySelectorAll('.sidebar li[data-page="about"]').forEach(li => li.classList.add('active'));
+            });
+            
+            proceedCheckoutBtn.addEventListener('click', function() {
+                if (cart.length === 0) {
+                    alert('Your cart is empty. Please add some products before checking out.');
+                    return;
+                }
+                closeCartModal();
+                openCheckout();
+            });
+            
+            closeCheckout.addEventListener('click', closeCheckoutModal);
+            
+            checkoutForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                processOrder();
+            });
+            
+            // Close modals when clicking outside
+            cartModal.addEventListener('click', function(e) {
+                if (e.target === cartModal) {
+                    closeCartModal();
+                }
+            });
+            
+            checkoutModal.addEventListener('click', function(e) {
+                if (e.target === checkoutModal) {
+                    closeCheckoutModal();
+                }
+            });
+        });
+
+        // Render products to the page
+        function renderProducts() {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+                
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}">
+                        <div class="product-badge">${discount}% OFF</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+                        <div class="product-price">
+                            <div>
+                                <span class="price">${formatPrice(product.price)}</span>
+                                <span class="original-price">${formatPrice(product.originalPrice)}</span>
+                            </div>
+                        </div>
+                        <button class="add-to-cart" data-id="${product.id}">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                `;
+                
+                productsGrid.appendChild(productCard);
+            });
+            
+            // Add event listeners to Add to Cart buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = parseInt(this.getAttribute('data-id'));
+                    addToCart(productId);
+                });
+            });
+  }
+
+        // Setup navigation between pages
+        function setupNavigation() {
+            // Header navigation
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.getAttribute('data-page');
+                    showPage(page);
+                    
+                    // Update active state
+                    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update sidebar active state
+                    document.querySelectorAll('.sidebar li').forEach(li => {
+                        if (li.getAttribute('data-page') === page) {
+                            li.classList.add('active');
+                        } else {
+                            li.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            
+            // Sidebar navigation
+            document.querySelectorAll('.sidebar li').forEach(item => {
+                item.addEventListener('click', function() {
+                    const page = this.getAttribute('data-page');
+                    showPage(page);
+                    
+                    // Update active state
+                    document.querySelectorAll('.sidebar li').forEach(li => li.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update header navigation active state
+                    document.querySelectorAll('nav a').forEach(a => {
+                        if (a.getAttribute('data-page') === page) {
+                            a.classList.add('active');
+                        } else {
+                            a.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        }
+
+        // Show specific page
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(page).classList.add('active');
+        }
+
+        // Add product to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            
+            // Show confirmation
+            alert(`${product.name} added to cart!`);
+        }
+
+        // Update cart UI
+        function updateCart() {
+            // Update cart count
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update cart items
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; padding: 20px;">Your cart is empty</p>';
+            } else {
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div class="cart-item-image">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="cart-item-details">
+                            <h4>${item.name}</h4>
+                            <div class="cart-item-price">${formatPrice(item.price)}</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                            </div>
+                        </div>
+                        <button class="remove-item" data-id="${item.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+                
+                // Add event listeners for quantity buttons
+                document.querySelectorAll('.decrease').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        decreaseQuantity(id);
+                    });
+                });
+                
+                document.querySelectorAll('.increase').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        increaseQuantity(id);
+                    });
+                });
+                
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        removeFromCart(id);
+                    });
+                });
+            }
+            
+            // Update cart total
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = formatPrice(total);
+        }
+
+        // Increase item quantity
+        function increaseQuantity(productId) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += 1;
+                updateCart();
+            }
+        }
+
+        // Decrease item quantity
+        function decreaseQuantity(productId) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                if (item.quantity > 1) {
+                    item.quantity -= 1;
+                } else {
+                    removeFromCart(productId);
+                }
+                updateCart();
+            }
+        }
+
+        // Remove item from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        // Open cart modal
+        function openCart() {
+            cartModal.style.display = 'flex';
+        }
+
+        // Close cart modal
+        function closeCartModal() {
+            cartModal.style.display = 'none';
+        }
+
+        // Open checkout modal
+        function openCheckout() {
+            checkoutModal.style.display = 'flex';
+        }
+
+        // Close checkout modal
+        function closeCheckoutModal() {
+            checkoutModal.style.display = 'none';
+        }
+
+        // Process order
+        function processOrder() {
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            alert(`Thank you for your order! Your total is ${formatPrice(total)}. We will contact you shortly to confirm your order details.`);
+            
+            // Reset cart and close modals
+            cart = [];
+            updateCart();
+            closeCheckoutModal();
+            checkoutForm.reset();
+        }
+    </script>
+</body>
+</html>
